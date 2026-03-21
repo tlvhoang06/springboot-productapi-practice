@@ -24,4 +24,16 @@ public class ProductService {
         return productRepository.findById(id)
                 .orElseThrow(() ->  new RuntimeException("Cannot find product " + id));
     }
+    public void updateProduct(Integer id, Product productDetails){
+        Product existingProduct = productRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("Cannot find product " + id));
+        existingProduct.setName(productDetails.getName());
+        existingProduct.setPrice(productDetails.getPrice());
+        productRepository.save(existingProduct);
+    }
+    public void deleteProduct(Integer id){
+        Product existingProduct = productRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("Cannot find product " + id));
+        productRepository.delete(existingProduct);
+    }
 }
